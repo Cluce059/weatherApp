@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--BS cdn-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--moment for todays date-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>WeatherApp</title>
 </head>
@@ -24,7 +26,7 @@
                     <h4 class = "card-header">Search for a City</h4>
                     <form id = "search-form" class = "card-body">
                         <input name = "city" id = "city" type = "text" autofocus ="true" class="form-input" placeholder ="San Diego"/>
-                        <button type = "submit" class="btn"><i class="fas fa-search"></i>Search</button>
+                        <button type = "submit" id = "searchBtn"class="btn"><i class="fas fa-search"></i>Search</button>
                     </form>
                 </div>
             </div>
@@ -36,12 +38,13 @@
             <!--initial display when user first opens app-->
             <div class = "jumbotron jumbotron-fluid rounded">
                 <div class = "container">
-                    <h1 class = "d-4 pt-0" id = "cityName"></h1>
-                    <h4 id ="initialMsg">Use the Search Bar to Select a City</h4>
+                    <h1 class = "d-4 pt-0" id = "city-name"></h1>
+                    <h4 id ="todaysDate">Use the Search Bar to Select a City</h4>
                     <p class="lead"><span id="description"></span> <img class="weathicon" id="icon" src=""></p>
                     <p class="lead"><span id = "temperature"></span></p>
                     <p class="lead"><span id = "humidity"></span></p>
-                    <p class="lead"><span id = "windSpeed"></span></p>   
+                    <p class="lead"><span id = "windSpeed"></span></p>  
+                    <p class="lead"><span id = "UV"></span></p>
                 </div>
             </div>
             <div class = "jumbotron jumbotron-fluid mt-2 rounded">
@@ -54,6 +57,7 @@
                                 <h5 class = "card-title" id = "forecast1"></h5>
                                 <img class = "weathicon" id = "day1icon" src="">
                                 <p class = "card-text"><span id = day1temp></span></p>
+                                <p class = "card-text"><span id = day1wind></span></p>
                                 <p class = "card-text"><span id = day1humidity></span></p>
                             </div>
                         </div>
@@ -63,6 +67,7 @@
                                 <h5 class = "card-title" id = "forecast2"></h5>
                                 <img class = "weathicon" id = "day2icon" src="">
                                 <p class = "card-text"><span id = day2temp></span></p>
+                                <p class = "card-text"><span id = day2wind></span></p>
                                 <p class = "card-text"><span id = day2humidity></span></p>
                             </div>
                         </div>
@@ -72,6 +77,7 @@
                                 <h5 class = "card-title" id = "forecast3"></h5>
                                 <img class = "weathicon" id = "day3icon" src="">
                                 <p class = "card-text"><span id = day3temp></span></p>
+                                <p class = "card-text"><span id = day3wind></span></p>
                                 <p class = "card-text"><span id = day3humidity></span></p>
                             </div>
                         </div>
@@ -81,6 +87,7 @@
                                 <h5 class = "card-title" id = "forecast4"></h5>
                                 <img class = "weathicon" id = "day1icon" src="">
                                 <p class = "card-text"><span id = day4temp></span></p>
+                                <p class = "card-text"><span id = day4wind></span></p>
                                 <p class = "card-text"><span id = day4humidity></span></p>
                             </div>
                         </div>
@@ -90,6 +97,7 @@
                                 <h5 class = "card-title" id = "forecast5"></h5>
                                 <img class = "weathicon" id = "day5icon" src="">
                                 <p class = "card-text"><span id = day5temp></span></p>
+                                <p class = "card-text"><span id = day5wind></span></p>
                                 <p class = "card-text"><span id = day5humidity></span></p>
                             </div>
                         </div>
