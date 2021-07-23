@@ -44,7 +44,7 @@ function searchButtonHandler(event){
         return;
     }
     else{
-        console.log(cityInputText);
+        //console.log(cityInputText);
         //call getwhather functions
         fetchWeatherData(cityInputText);
     }
@@ -71,7 +71,7 @@ function fetchWeatherData(cityInputText){
         if(response.ok){
             response.json().then(function(data){
                 displayWeather(data, cityInputText);
-                //console.log(response);
+                console.log(data);
             });
         }
             else{
@@ -86,11 +86,13 @@ function fetchWeatherData(cityInputText){
 //function to display currenr weather
 function displayWeather(data){
     if(data.length === 0){
-        cityInput.textContent = "No data for that city";
+        currentDate.textContent = "No data for that city :(";
         return;
     }
     else{
         currentDate.textContent = data.name + moment().format(" MM/DD/YY");
+        var currentIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+        document.getElementById("icon").src = currentIcon;
     }
 };
 
