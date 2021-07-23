@@ -21,15 +21,15 @@
         <!--search by city-->
         <!--from BS: Use .container-fluid for a full width container, spanning the entire width of the viewport-->
         <div class = "container-fluid">
-            <div class = "row">
+        <div class = "row">
                 <div class = "col-2 left">
-                    <h4 class = "card-header">Search for a City</h4>
-                    <form id = "search-form" class = "card-body">
-                        <input name = "city" id = "city" type = "text" autofocus ="true" class="form-input" placeholder ="San Diego"/>
+                    <h4 class = "pt-6">Search for a City</h4>
+                    <div id = "search-form" class = "card-body">
+                        <input name = "city" id= "city" type = "text" autofocus ="true" class="form-input" placeholder ="San Diego"/>
+                        <div class = "input-group-append">
                         <button type = "submit" id = "searchBtn"class="btn"><i class="fas fa-search"></i>Search</button>
-                    </form>
-                </div>
-            </div>
+                        </div>
+                    </div>    
         <!--search  history-->
         <div class="list-group" id="search-history"></div>
         </div>
@@ -47,12 +47,13 @@
                     <p class="lead"><span id = "UV"></span></p>
                 </div>
             </div>
+       
             <div class = "jumbotron jumbotron-fluid mt-2 rounded">
                 <div class="container container-fluid weekJumbo">
                     <h1 class="d-4 pl-4 pd-2">5 Day Forecast:</h1>
                     <!--week cards-->
                     <div class = "cardsize card-deck">
-                        <div class="card pl-0 m-0">
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class = "card-title" id = "forecast1"></h5>
                                 <img class = "weathicon" id = "day1icon" src="">
@@ -60,6 +61,7 @@
                                 <p class = "card-text"><span id = day1wind></span></p>
                                 <p class = "card-text"><span id = day1humidity></span></p>
                             </div>
+                        </div>
                         </div>
                         <!--day 2-->
                         <div class="card">
@@ -105,9 +107,7 @@
                 </div>
             </div>
         </div>
-
-
-
+     </div>
     </main>
 </body>
 </html>
