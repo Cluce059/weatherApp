@@ -66,12 +66,30 @@ function displayForecast(data){
 
 //function to display today's current weather
 function fetchWeatherData(cityInputText){
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInputText + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
-    fetch(apiUrl).then(function(response){
+    //okay so basically, you need lat and long params to use onsecall, which will be easier in the long run
+    //make an initial call to fetch the current weather data for the city, THEN use the lat and long values to use the onecall api for the forecast...
+    //well..now that I think about it it's all just to get the current uv index, kinda stinky but whatever
+    var apiUrlLocation = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInputText + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
+    fetch(apiUrlLocation).then(function(response){
         if(response.ok){
             response.json().then(function(data){
-                displayWeather(data, cityInputText);
-                console.log(data);
+                //console.log(data);
+                var lat = data.coord.lat;
+                var lon = data.coord.lon;
+                console.log(lat, lon);
+                //nested api call
+                var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" +lon+ "&units=imperial" +"&appid=5900db7311e0af32ad5ab7ce4fdd9244"; 
+                fetch(apiUrl).then(function(response){
+                    if(response.ok){
+                         response.json().then(function(data){
+                             displayWeather(data, cityInputText);
+                             console.log(data);
+                         });
+                    }
+                    else{
+                        alert("Error " + response.statusText);
+                    }
+                });
             });
         }
             else{
@@ -91,8 +109,20 @@ function displayWeather(data){
     }
     else{
         currentDate.textContent = data.name + moment().format(" MM/DD/YY");
-        var currentIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
-        document.getElementById("icon").src = currentIcon;
+        //var cityIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+        var cityIcon = data.weather[0].icon;
+        //only need link for img icon
+        var cityTemp =   data.current.temp;
+        var cityHumidity = data.current.humidity;
+        var cityWind = data.weather[0].wind_speed;
+        var cityUV = data.current.uvi;
+        //console.log(cityTemp);
+        
+        document.getElementById("icon").src = "http://openweathermap.org/img/w/" + cityIcon + ".png";
+        currentTemp.textContent= "Temp: " + cityTemp + " °F";
+        currentHumidity.textContent = "Humidity " + cityHumidity + " %";
+        currentWindSpeed.textContent = "Wind Speed: " + cityWind + " mph";
+        currentUVIndex.textContent = "UV Index: " + cityUV;
     }
 };
 
