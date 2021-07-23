@@ -1,4 +1,4 @@
-var searchInput = document.querySelector("#city");
+var cityInput = document.querySelector("#city");
 var searchBtn = document.querySelector("#searchBtn");
 var cityName = document.querySelector("#city-name");
 var currentDate = document.querySelector("#todaysDate");
@@ -36,26 +36,19 @@ var dayFiveForecastWind = document.querySelector("#day5wind");
 var dayFiveForecastHumidity = document.querySelector("#day5humidity");
 
 //function that assures input is valid
-function searchFormHandler(event){
+function searchButtonHandler(event){
     event.preventDefault();
-    var searchInputText = document.querySelector("#search-input").value();
-    if(!searchInputText){
-        alert("Please enter a valid city name");
+    var cityInputText = document.querySelector("#search-input").value;
+    if(!cityInputText){
+        alert("Please enter a city name");
         return;
     }
     else{
-        //call get wheather functions
+        console.log(cityInputText);
+        //call getwhather functions
+        fetchWeatherData(cityInputText);
     }
-};
-
-//function to display search history
-function renderHistory(city){
-    //console.log("clicked search");
-};
-
-//function to clear search bar
-function clearSearchTerm(){
-    searchInput.value = "";//val()? value()? idk
+    
 };
 
 //function to display 5 day forecast
@@ -69,24 +62,16 @@ function displayForecast(data){
     var dayThreeForecast = moment().add(3, "day").format("ddd - M/DD/YY");
     var dayFourForecast = moment().add(4, "day").format("ddd - M/DD/YY");
     var dayFiveForecast = moment().add(5, "day").format("ddd - M/DD/YY");
-
-    
-
 };
-
-//funcitont to display weather data
-function displayWeather(){
-
-};
-
 
 //function to display today's current weather
-function renderWeatherData(city){
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
+function fetchWeatherData(cityInputText){
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInputText + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
     fetch(apiUrl).then(function(response){
         if(response.ok){
             response.json().then(function(data){
-                displayWeather(data, city);
+                displayWeather(data, cityInputText);
+                //console.log(response);
             });
         }
             else{
@@ -98,9 +83,20 @@ function renderWeatherData(city){
     });
 };
 
-function renderForecastData(city){
+//function to display currenr weather
+function displayWeather(data){
+    if(data.length === 0){
+        cityInput.textContent = "No data for that city";
+        return;
+    }
+    else{
+        currentDate.textContent = data.name + moment().format(" MM/DD/YY");
+    }
+};
+
+function fetchForecastData(cityInputText){
     //used an all in one api so same link w different params
-    var forecastUrl ="https://api.openweathermap.org/data/2.5/forecast?q=" + city +"&units=imperial" + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
+    var forecastUrl ="https://api.openweathermap.org/data/2.5/forecast?q=" + cityInputText +"&units=imperial" + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
     fetch(forecastUrl).then(function(response){
         if(response.ok){
             response.json().then(function(data){
@@ -116,5 +112,6 @@ function renderForecastData(city){
     });
 };
 
-//event listeners////////////////////////////
-searchBtn.addEventListener("click", renderHistory);
+//event listeners////////////////////////////////////////////
+searchBtn.addEventListener("click", searchButtonHandler);
+//history.addEventListener("click", )
