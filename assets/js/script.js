@@ -76,14 +76,14 @@ function fetchWeatherData(cityInputText){
                 //console.log(data);
                 var lat = data.coord.lat;
                 var lon = data.coord.lon;
-                console.log(lat, lon);
+                //console.log(lat, lon);
                 //nested api call
                 var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" +lon+ "&units=imperial" +"&appid=5900db7311e0af32ad5ab7ce4fdd9244"; 
                 fetch(apiUrl).then(function(response){
                     if(response.ok){
                          response.json().then(function(data){
                              displayWeather(data, cityInputText);
-                             console.log(data);
+                             //console.log(data);
                          });
                     }
                     else{
@@ -102,23 +102,36 @@ function fetchWeatherData(cityInputText){
 };
 
 //function to display currenr weather
-function displayWeather(data){
+function displayWeather(data, cityInputText){
     if(data.length === 0){
         currentDate.textContent = "No data for that city :(";
         return;
     }
     else{
-        currentDate.textContent = data.name + moment().format(" MM/DD/YY");
-        //var cityIcon = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
-        var cityIcon = data.weather[0].icon;
+        currentDate.textContent = cityInputText + moment().format(" MM/DD/YY");
+        var iconUrl = "http://openweathermap.org/img/wn/" +data.current.weather[0].icon +"@2x.png";
+        http://openweathermap.org/img/wn/10d@2x.png
         //only need link for img icon
+        //console.log(data.current.weather[0].icon);
         var cityTemp =   data.current.temp;
         var cityHumidity = data.current.humidity;
-        var cityWind = data.weather[0].wind_speed;
+        var cityWind = data.current.wind_speed;
         var cityUV = data.current.uvi;
+        if(cityUV < .3){
+            cityUV.innerHTML = ("class = 'low'");
+            
+            console.log(this);
+        }
+        if(cityUV > .3 && cityUV < .6){
+            $(this).addClass("moderate");
+        }
+        else{
+            $(this).addClass("danger");
+        }
         //console.log(cityTemp);
         
-        document.getElementById("icon").src = "http://openweathermap.org/img/w/" + cityIcon + ".png";
+        var currentIcon = document.getElementById("icon");
+        currentIcon.src = iconUrl;
         currentTemp.textContent= "Temp: " + cityTemp + " °F";
         currentHumidity.textContent = "Humidity " + cityHumidity + " %";
         currentWindSpeed.textContent = "Wind Speed: " + cityWind + " mph";
