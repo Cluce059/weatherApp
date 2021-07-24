@@ -110,24 +110,25 @@ function displayWeather(data, cityInputText){
     else{
         currentDate.textContent = cityInputText + moment().format(" MM/DD/YY");
         var iconUrl = "http://openweathermap.org/img/wn/" +data.current.weather[0].icon +"@2x.png";
-        http://openweathermap.org/img/wn/10d@2x.png
+        //http://openweathermap.org/img/wn/10d@2x.png
         //only need link for img icon
         //console.log(data.current.weather[0].icon);
         var cityTemp =   data.current.temp;
         var cityHumidity = data.current.humidity;
         var cityWind = data.current.wind_speed;
         var cityUV = data.current.uvi;
-        if(cityUV < .3){
-            cityUV.innerHTML = ("class = 'low'");
-            
-            console.log(this);
-        }
-        if(cityUV > .3 && cityUV < .6){
-            $(this).addClass("moderate");
-        }
-        else{
-            $(this).addClass("danger");
-        }
+        //var uvi = parseInt($(this).attr(""))
+        
+        if(cityUV < 3){
+             //cityUV.innerHTML = ("class = 'low'");
+             currentUVIndex.className += "low";
+         }
+         if(cityUV > 3 && cityUV < 7){
+             currentUVIndex.className += "moderate";
+         }
+         else if(cityUV > 7){
+            currentUVIndex.className += "danger";
+         }
         //console.log(cityTemp);
         
         var currentIcon = document.getElementById("icon");
