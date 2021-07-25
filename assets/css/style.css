@@ -1,14 +1,19 @@
   
 .low {
     background-color: #32eb32;
- 
   }
 .moderate {
-    background-color: #b0fd33;
-    
+    background-color: #b0fd33;    
   }
-  
 .danger {
     background-color: #e41106;
-
+    color: white;
   }
+.card{
+  background-color: grey;
+  margin-bottom: 10px;
+}
+.btn{
+  background-color: blue;
+  color:white;
+}
