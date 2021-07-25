@@ -28,7 +28,7 @@ var dayThreeForecastHumidity =document.querySelector("#day3humidity");
 var dayFourForecastDate = document.querySelector("#forecast4");
 var dayFourForecastTemp = document.querySelector("#day4temp");
 var dayFourForecastWind = document.querySelector("#day4wind");
-var dayFourForecastHumidity = document.querySelector("#day4humidty");
+var dayFourForecastHumidity = document.querySelector("#day4humidity");
 
 var dayFiveForecastDate = document.querySelector("#forecast5");
 var dayFiveForecastTemp = document.querySelector("#day5temp");
@@ -104,7 +104,27 @@ function displayForecast(data){
     document.getElementById("day4icon").src = day4Icon;
     document.getElementById("day5icon").src = day5Icon;
 
-    
+    dayOneForecastTemp.textContent = "Temp: " + day1Temp;
+    dayOneForecastHumidity.textContent = "Humidity: " + day1Humidity;
+    dayOneForecastWind.textContent = "Wind Speed: " + day1Wind;
+
+    dayTwoForecastTemp.textContent = "Temp: " + day2Temp;
+    dayTwoForecastHumidity.textContent = "Humidity " + day2Humidity;
+    dayTwoForecastHumidity.textContent = "Windo Speed" + day2Wind;
+
+    dayThreeForecastTemp.textContent = "Temp: " + day3Temp;
+    dayThreeForecastHumidity.textContent = "Humidity: " + day3Humidity;
+    dayThreeForecastWind.textContent = "Wind Speed: " + day3Wind;
+
+    dayFourForecastTemp.textContent = "Temp: " + day4Temp;
+    dayFourForecastHumidity.textContent = "Humidity: " +day4Humidity;
+    dayFourForecastWind.textContent = "Wind Speed: " + day4Wind;
+
+    dayFiveForecastTemp.textContent = "Temp: " + day5Temp;
+    dayFiveForecastHumidity.textContent = "Humidity: " + day5Humidity;
+    dayFiveForecastWind.textContent = "Wind Speed: " + day5Wind;
+
+
 };
 
 //function to display today's current weather
