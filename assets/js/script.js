@@ -47,9 +47,97 @@ function searchButtonHandler(event){
         //console.log(cityInputText);
         //call getwhather functions
         fetchWeatherData(cityInputText);
+        fetchForecastData(cityInputText);
         displayHistory(cityInputText);
-    }
-    clear(cityInputText);
+        clear(cityInputText);
+    }    
+};
+
+//funciton to clear out search bar
+function clear(cityInputText){
+    cityInputText.value = "";  
+  };
+
+//function to display search histopry
+function displayHistory(cityInputText){
+    cityInputText = cityInputText.toUpperCase();
+    //console.log(cityInputText);
+    var searchItem = document.createElement("a");
+    searchItem.setAttribute("href", "#");
+    searchItem.setAttribute("class", "list-group-item list-group-item-action");
+    var searchItemToAdd = cityInputText;
+    searchItem.setAttribute("data-city", cityInputText);
+    searchItem.innerHTML = searchItemToAdd;
+    var history = document.querySelector("#search-history");
+    history.appendChild(searchItem);
+};
+
+//function to handle history item selection
+function clickHandler(event){
+    event.preventDefault();
+    var historyCity = event.target.getAttribute("data-city");
+    //if(historyCity){
+        //fetchWeatherData(historyCity);
+        //fetchForecastData(historyCity);
+        console.log(historyCity);
+   // }
+};
+
+//function to display today's current weather
+function fetchWeatherData(cityInputText){
+    //okay so basically, you need lat and long params to use onsecall, which will be easier in the long run
+    //make an initial call to fetch the current weather data for the city, THEN use the lat and long values to use the onecall api for the forecast...
+    //well..now that I think about it it's all just to get the current uv index, kinda stinky but whatever
+    var apiUrlLocation = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInputText + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
+    fetch(apiUrlLocation).then(function(response){
+        if(response.ok){
+            response.json().then(function(data){
+                //console.log(data);
+                var lat = data.coord.lat;
+                var lon = data.coord.lon;
+                //console.log(lat, lon);
+                //nested api call
+                var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" +lon+ "&units=imperial" +"&appid=5900db7311e0af32ad5ab7ce4fdd9244"; 
+                fetch(apiUrl).then(function(response){
+                    if(response.ok){
+                         response.json().then(function(data){
+                             displayWeather(data, cityInputText);
+                             displayForecast(data);
+                             //console.log(data);
+                         });
+                    }
+                    else{
+                        alert("Error " + response.statusText);
+                    }
+                });
+            });
+        }
+            else{
+                alert("Error" +response.statusText);
+            }
+    })
+    .catch(function(error){
+        alert("Check network connection");
+    });
+};
+
+//function to fetch 5 ay forecast data
+function fetchForecastData(cityInputText){
+    //used an all in one api so same link w different params
+    var forecastUrl ="https://api.openweathermap.org/data/2.5/forecast?q=" + cityInputText +"&units=imperial" + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
+    fetch(forecastUrl).then(function(response){
+        if(response.ok){
+            response.json().then(function(data){
+                displayForecast(data);
+            });
+        }
+        else{
+            alert("Error " + response.statusText);
+        }
+    })
+    .catch(function(error){
+        alert("Check network connection");
+    });
 };
 
 //function to display 5 day forecast
@@ -104,84 +192,25 @@ function displayForecast(data){
     document.getElementById("day4icon").src = day4Icon;
     document.getElementById("day5icon").src = day5Icon;
 
-    dayOneForecastTemp.textContent = "Temp: " + day1Temp;
-    dayOneForecastHumidity.textContent = "Humidity: " + day1Humidity;
-    dayOneForecastWind.textContent = "Wind Speed: " + day1Wind;
+    dayOneForecastTemp.textContent = "Temp: " + day1Temp + " °F";
+    dayOneForecastHumidity.textContent = "Humidity: " + day1Humidity + " %";
+    dayOneForecastWind.textContent = "Wind Speed: " + day1Wind + " mph";
 
-    dayTwoForecastTemp.textContent = "Temp: " + day2Temp;
-    dayTwoForecastHumidity.textContent = "Humidity " + day2Humidity;
-    dayTwoForecastHumidity.textContent = "Windo Speed" + day2Wind;
+    dayTwoForecastTemp.textContent = "Temp: " + day2Temp + " °F";
+    dayTwoForecastHumidity.textContent = "Humidity " + day2Humidity + " %";
+    dayTwoForecastHumidity.textContent = "Windo Speed" + day2Wind + " mph";
 
-    dayThreeForecastTemp.textContent = "Temp: " + day3Temp;
-    dayThreeForecastHumidity.textContent = "Humidity: " + day3Humidity;
-    dayThreeForecastWind.textContent = "Wind Speed: " + day3Wind;
+    dayThreeForecastTemp.textContent = "Temp: " + day3Temp + " °F";
+    dayThreeForecastHumidity.textContent = "Humidity: " + day3Humidity + " %";
+    dayThreeForecastWind.textContent = "Wind Speed: " + day3Wind+ " mph";
 
-    dayFourForecastTemp.textContent = "Temp: " + day4Temp;
-    dayFourForecastHumidity.textContent = "Humidity: " +day4Humidity;
-    dayFourForecastWind.textContent = "Wind Speed: " + day4Wind;
+    dayFourForecastTemp.textContent = "Temp: " + day4Temp + " °F";
+    dayFourForecastHumidity.textContent = "Humidity: " +day4Humidity+" %";
+    dayFourForecastWind.textContent = "Wind Speed: " + day4Wind + " mph";
 
-    dayFiveForecastTemp.textContent = "Temp: " + day5Temp;
-    dayFiveForecastHumidity.textContent = "Humidity: " + day5Humidity;
-    dayFiveForecastWind.textContent = "Wind Speed: " + day5Wind;
-
-
-};
-
-//function to display today's current weather
-function fetchWeatherData(cityInputText){
-    //okay so basically, you need lat and long params to use onsecall, which will be easier in the long run
-    //make an initial call to fetch the current weather data for the city, THEN use the lat and long values to use the onecall api for the forecast...
-    //well..now that I think about it it's all just to get the current uv index, kinda stinky but whatever
-    var apiUrlLocation = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInputText + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
-    fetch(apiUrlLocation).then(function(response){
-        if(response.ok){
-            response.json().then(function(data){
-                //console.log(data);
-                var lat = data.coord.lat;
-                var lon = data.coord.lon;
-                //console.log(lat, lon);
-                //nested api call
-                var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" +lon+ "&units=imperial" +"&appid=5900db7311e0af32ad5ab7ce4fdd9244"; 
-                fetch(apiUrl).then(function(response){
-                    if(response.ok){
-                         response.json().then(function(data){
-                             displayWeather(data, cityInputText);
-                             displayForecast(data);
-                             console.log(data);
-                         });
-                    }
-                    else{
-                        alert("Error " + response.statusText);
-                    }
-                });
-            });
-        }
-            else{
-                alert("Error" +response.statusText);
-            }
-    })
-    .catch(function(error){
-        alert("Check network connection");
-    });
-};
-
-//funciton to clear out search bar
-function clear(cityInputText){
-  cityInputText.value = "";  
-};
-
-//function to display search histopry
-function displayHistory(cityInputText){
-    cityInputText = cityInputText.toUpperCase();
-    //console.log(cityInputText);
-    var searchItem = document.createElement("a");
-    searchItem.setAttribute("href", "#");
-    searchItem.setAttribute("class", "list-group-item list-group-item-action");
-    var searchItemToAdd = cityInputText;
-    searchItem.setAttribute("data-city", cityInputText);
-    searchItem.innerHTML = searchItemToAdd;
-    var history = document.querySelector("#search-history");
-    history.appendChild(searchItem);
+    dayFiveForecastTemp.textContent = "Temp: " + day5Temp + " °F";
+    dayFiveForecastHumidity.textContent = "Humidity: " + day5Humidity+" %";
+    dayFiveForecastWind.textContent = "Wind Speed: " + day5Wind + " mph";
 };
 
 //function to display currenr weather
@@ -200,9 +229,11 @@ function displayWeather(data, cityInputText){
         var cityHumidity = data.current.humidity;
         var cityWind = data.current.wind_speed;
         var cityUV = data.current.uvi;
+        //clear out previous classname
+        currentUVIndex.className = "";
         //var uvi = parseInt($(this).attr(""))
         if(cityUV < 3.0){
-             //cityUV.innerHTML = ("class = 'low'");
+             //cityUV.innerHTML = ("class = 'low'")
              currentUVIndex.className += "low";
          }
          if(cityUV > 3 && cityUV < 7){
@@ -222,24 +253,8 @@ function displayWeather(data, cityInputText){
     }
 };
 
-function fetchForecastData(cityInputText){
-    //used an all in one api so same link w different params
-    var forecastUrl ="https://api.openweathermap.org/data/2.5/forecast?q=" + cityInputText +"&units=imperial" + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
-    fetch(forecastUrl).then(function(response){
-        if(response.ok){
-            response.json().then(function(data){
-                displayForecast(data);
-            });
-        }
-        else{
-            alert("Error " + response.statusText);
-        }
-    })
-    .catch(function(error){
-        alert("Check network connection");
-    });
-};
-
 //event listeners////////////////////////////////////////////
 searchBtn.addEventListener("click", searchButtonHandler);
-//history.addEventListener("click", )
+//for if user qants to select search history item to search
+//console.log(history);
+history.addEventListener("", clickHandler);
