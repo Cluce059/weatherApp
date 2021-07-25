@@ -1,19 +1,41 @@
-  
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+} 
+header{
+  background-image: linear-gradient(to right, rgb(136, 136, 218), blue);
+  color: white;
+  text-align: center;
+};
 .low {
     background-color: #32eb32;
-  }
+    border-radius: 2px;
+  };
 .moderate {
     background-color: #b0fd33;    
-  }
+    border-radius: 2px;
+  };
 .danger {
     background-color: #e41106;
+    border-radius: 2px;
     color: white;
-  }
+  };
 .card{
   background-color: grey;
   margin-bottom: 10px;
-}
+  border-radius: 0;
+};
+.jumbotron-fluid {
+  padding-top: 0;
+
+};
 .btn{
   background-color: blue;
   color:white;
+}
+.city-name {
+  font-weight: bolder!important;
+  font-size: 35px;
 }

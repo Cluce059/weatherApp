@@ -14,7 +14,7 @@
 <body>
     <!--header bar-->
     <header>
-        <h1>Weather Dashboard</h1>
+        <h1 class ="font-weight-bolder">Weather Dashboard</h1>
     </header>
 <!--main content where the action happens-->
     <main>
@@ -31,17 +31,16 @@
                         </div>
                     </div>    
         <!--search  history-->
-        <div class="list-group" id="search-history">
-
+        <div class="list-group " id="search-history">
         </div>
         </div>
         <!--right col displaying weather data-->
         <div class = "col-10 right">
             <!--initial display when user first opens app-->
-            <div class = "jumbotron jumbotron-fluid rounded border border-dark">
+            <div class = "jumbotron jumbotron-fluid border border-dark bg-white">
                 <div class = "container">
-                    <h1 class = "d-4 pt-0" id = "city-name"></h1>
-                    <h4 id ="todaysDate">Use the Search Bar to Select a City</h4>
+                    <h1 class = "city-name d-4 pt-0 font-weight-bolder" id = "city-name"></h1>
+                    <h1 id ="todaysDate" class="font-weight-bolder">Use the Search Bar to Select a City</h1>
                     <p class="lead"><span id="description"></span> <img class="weathicon" id="icon" src="" alt = "weather icon"></p>
                     <p class="lead"><span id = "temperature"></span></p>
                     <p class="lead"><span id = "humidity"></span></p>
@@ -50,7 +49,7 @@
                 </div>
             </div>
        
-            <div class = "jumbotron jumbotron-fluid mt-2 rounded">
+            <div class = "jumbotron jumbotron-fluid mt-2 bg-white">
                 <div class="container container-fluid weekJumbo">
                     <h1 class="d-4 pl-4 pd-2">5-Day Forecast :</h1>
                     <!--week cards-->
