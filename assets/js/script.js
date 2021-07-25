@@ -47,8 +47,9 @@ function searchButtonHandler(event){
         //console.log(cityInputText);
         //call getwhather functions
         fetchWeatherData(cityInputText);
+        displayHistory(cityInputText);
     }
-    
+    clear(cityInputText);
 };
 
 //function to display 5 day forecast
@@ -62,6 +63,8 @@ function displayForecast(data){
     var dayThreeForecast = moment().add(3, "day").format("ddd - M/DD/YY");
     var dayFourForecast = moment().add(4, "day").format("ddd - M/DD/YY");
     var dayFiveForecast = moment().add(5, "day").format("ddd - M/DD/YY");
+
+    
 };
 
 //function to display today's current weather
@@ -83,6 +86,7 @@ function fetchWeatherData(cityInputText){
                     if(response.ok){
                          response.json().then(function(data){
                              displayWeather(data, cityInputText);
+                             displayForecast(data);
                              //console.log(data);
                          });
                     }
@@ -99,6 +103,25 @@ function fetchWeatherData(cityInputText){
     .catch(function(error){
         alert("Check network connection");
     });
+};
+
+//funciton to clear out search bar
+function clear(cityInputText){
+  cityInputText.value = "";  
+};
+
+//function to display search histopry
+function displayHistory(cityInputText){
+    cityInputText = cityInputText.toUpperCase();
+    console.log(cityInputText);
+    var searchItem = document.createElement("a");
+    searchItem.setAttribute("href", "#");
+    searchItem.setAttribute("class", "list-group-item list-group-item-action");
+    var searchItemToAdd = cityInputText;
+    searchItem.setAttribute("data-city", cityInputText);
+    searchItem.innerHTML = searchItemToAdd;
+    var history = document.querySelector("#search-history");
+    history.appendChild(searchItem);
 };
 
 //function to display currenr weather
@@ -118,8 +141,7 @@ function displayWeather(data, cityInputText){
         var cityWind = data.current.wind_speed;
         var cityUV = data.current.uvi;
         //var uvi = parseInt($(this).attr(""))
-        
-        if(cityUV < 3){
+        if(cityUV < 3.0){
              //cityUV.innerHTML = ("class = 'low'");
              currentUVIndex.className += "low";
          }
