@@ -31,9 +31,10 @@ header{
     color: white;
   }
 .card{
-  background-color: grey;
+  background-color: rgb(49, 47, 47);
   margin-bottom: 10px;
   border-radius: 0;
+  color: white;
 }
 .jumbotron-fluid {
   padding-top: 0;
