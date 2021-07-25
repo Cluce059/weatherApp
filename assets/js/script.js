@@ -7,6 +7,7 @@ var currentHumidity = document.querySelector("#humidity");
 var currentWindSpeed = document.querySelector("#windSpeed");
 var currentUVIndex = document.querySelector("#UV");
 var history = document.querySelector("#search-history");
+
 var icon = document.querySelector("#icon");
 var currentConditions = document.querySelector("#description");
 
@@ -47,7 +48,8 @@ function searchButtonHandler(event){
         //console.log(cityInputText);
         //call getwhather functions
         fetchWeatherData(cityInputText);
-        fetchForecastData(cityInputText);
+        //tbh youre using a onecall so i dont think tht a seperate funciton to get forecast data is needed at all:??
+        //fetchForecastData(cityInputText);
         displayHistory(cityInputText);
         clear(cityInputText);
     }    
@@ -76,11 +78,11 @@ function displayHistory(cityInputText){
 function clickHandler(event){
     event.preventDefault();
     var historyCity = event.target.getAttribute("data-city");
-    //if(historyCity){
-        //fetchWeatherData(historyCity);
+    if(historyCity){
+        fetchWeatherData(historyCity);
         //fetchForecastData(historyCity);
-        console.log(historyCity);
-   // }
+        //console.log(historyCity);
+    }
 };
 
 //function to display today's current weather
@@ -121,24 +123,7 @@ function fetchWeatherData(cityInputText){
     });
 };
 
-//function to fetch 5 ay forecast data
-function fetchForecastData(cityInputText){
-    //used an all in one api so same link w different params
-    var forecastUrl ="https://api.openweathermap.org/data/2.5/forecast?q=" + cityInputText +"&units=imperial" + "&units=imperial" + "&appid=5900db7311e0af32ad5ab7ce4fdd9244";
-    fetch(forecastUrl).then(function(response){
-        if(response.ok){
-            response.json().then(function(data){
-                displayForecast(data);
-            });
-        }
-        else{
-            alert("Error " + response.statusText);
-        }
-    })
-    .catch(function(error){
-        alert("Check network connection");
-    });
-};
+
 
 //function to display 5 day forecast
 function displayForecast(data){
@@ -161,6 +146,7 @@ function displayForecast(data){
 
     var day2Temp = data.daily[2].temp.day; 
     var day2Humidity = data.daily[2].humidity;
+    //console.log(day2Humidity);
     var day2Wind = data.daily[2].wind_speed;
     var day2Icon = "http://openweathermap.org/img/wn/" + data.daily[2].weather[0].icon + "@2x.png";
 
@@ -198,7 +184,7 @@ function displayForecast(data){
 
     dayTwoForecastTemp.textContent = "Temp: " + day2Temp + " °F";
     dayTwoForecastHumidity.textContent = "Humidity " + day2Humidity + " %";
-    dayTwoForecastHumidity.textContent = "Windo Speed" + day2Wind + " mph";
+    dayTwoForecastWind.textContent = "Wind Speed " + day2Wind + " mph";
 
     dayThreeForecastTemp.textContent = "Temp: " + day3Temp + " °F";
     dayThreeForecastHumidity.textContent = "Humidity: " + day3Humidity + " %";
@@ -255,6 +241,6 @@ function displayWeather(data, cityInputText){
 
 //event listeners////////////////////////////////////////////
 searchBtn.addEventListener("click", searchButtonHandler);
-//for if user qants to select search history item to search
+//for if user wants to select search history item to search
 //console.log(history);
-history.addEventListener("", clickHandler);
+document.getElementById("search-history").addEventListener("click", clickHandler);
