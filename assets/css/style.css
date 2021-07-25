@@ -8,34 +8,38 @@ header{
   background-image: linear-gradient(to right, rgb(136, 136, 218), blue);
   color: white;
   text-align: center;
-};
+}
+.btn{
+    background-color: rgb(44, 44, 148);
+    color:white;
+}
+.search-body{
+  padding-bottom: 5px;
+  border-bottom: thick;
+}
 .low {
     background-color: #32eb32;
     border-radius: 2px;
-  };
+  }
 .moderate {
     background-color: #b0fd33;    
     border-radius: 2px;
-  };
+  }
 .danger {
     background-color: #e41106;
     border-radius: 2px;
     color: white;
-  };
+  }
 .card{
   background-color: grey;
   margin-bottom: 10px;
   border-radius: 0;
-};
+}
 .jumbotron-fluid {
   padding-top: 0;
-
-};
-.btn{
-  background-color: blue;
-  color:white;
 }
+
 .city-name {
-  font-weight: bolder!important;
+  font-weight: bolder;
   font-size: 35px;
 }
