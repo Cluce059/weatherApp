@@ -58,11 +58,51 @@ function displayForecast(data){
         cityName.textContent = "No data found in that city";
         return;
     }
-    var dayOneForecast = moment().add(1, "day").format("ddd - M/DD/YY");
-    var dayTwoForecast = moment().add(2, "day").format("ddd - M/DD/YY");
-    var dayThreeForecast = moment().add(3, "day").format("ddd - M/DD/YY");
-    var dayFourForecast = moment().add(4, "day").format("ddd - M/DD/YY");
-    var dayFiveForecast = moment().add(5, "day").format("ddd - M/DD/YY");
+    var day1Forecast = moment().add(1, "day").format("ddd - M/DD/YY");
+    var day2Forecast = moment().add(2, "day").format("ddd - M/DD/YY");    
+    var day3Forecast = moment().add(3, "day").format("ddd - M/DD/YY");
+    var day4Forecast = moment().add(4, "day").format("ddd - M/DD/YY");
+    var day5Forecast = moment().add(5, "day").format("ddd - M/DD/YY");
+
+    var day1Temp = data.daily[1].temp.day; 
+    var day1Humidity = data.daily[1].humidity;
+    var day1Wind = data.daily[1].wind_speed;
+    var day1Icon = "http://openweathermap.org/img/wn/" + data.daily[1].weather[0].icon + "@2x.png";
+    //console.log(day1Humidity);
+    //console.log(day1Wind);
+
+    var day2Temp = data.daily[2].temp.day; 
+    var day2Humidity = data.daily[2].humidity;
+    var day2Wind = data.daily[2].wind_speed;
+    var day2Icon = "http://openweathermap.org/img/wn/" + data.daily[2].weather[0].icon + "@2x.png";
+
+    var day3Temp = data.daily[3].temp.day; 
+    var day3Humidity = data.daily[3].humidity;
+    var day3Wind = data.daily[3].wind_speed;
+    var day3Icon = "http://openweathermap.org/img/wn/" + data.daily[3].weather[0].icon + "@2x.png";
+
+    var day4Temp = data.daily[4].temp.day; 
+    var day4Humidity = data.daily[4].humidity;
+    var day4Wind = data.daily[4].wind_speed;
+    var day4Icon = "http://openweathermap.org/img/wn/" + data.daily[4].weather[0].icon + "@2x.png";
+
+    var day5Temp = data.daily[5].temp.day; 
+    var day5Humidity = data.daily[5].humidity;
+    var day5Wind = data.daily[5].wind_speed;
+    var day5Icon = "http://openweathermap.org/img/wn/" + data.daily[5].weather[0].icon + "@2x.png";
+    
+    dayOneForecastDate.textContent = day1Forecast;
+    dayTwoForecastDate.textContent = day2Forecast;
+    dayThreeForecastDate.textContent = day3Forecast;
+    dayFourForecastDate.textContent = day4Forecast;
+    dayFiveForecastDate.textContent = day5Forecast;
+
+    document.getElementById("day1icon").src = day1Icon;
+    //console.log(day1icon);
+    document.getElementById("day2icon").src = day2Icon;
+    document.getElementById("day3icon").src = day3Icon;
+    document.getElementById("day4icon").src = day4Icon;
+    document.getElementById("day5icon").src = day5Icon;
 
     
 };
@@ -87,7 +127,7 @@ function fetchWeatherData(cityInputText){
                          response.json().then(function(data){
                              displayWeather(data, cityInputText);
                              displayForecast(data);
-                             //console.log(data);
+                             console.log(data);
                          });
                     }
                     else{
@@ -113,7 +153,7 @@ function clear(cityInputText){
 //function to display search histopry
 function displayHistory(cityInputText){
     cityInputText = cityInputText.toUpperCase();
-    console.log(cityInputText);
+    //console.log(cityInputText);
     var searchItem = document.createElement("a");
     searchItem.setAttribute("href", "#");
     searchItem.setAttribute("class", "list-group-item list-group-item-action");
