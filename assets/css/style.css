@@ -8,6 +8,9 @@ header{
   background-image: linear-gradient(to right, rgb(136, 136, 218), blue);
   color: white;
   text-align: center;
+  width: 100%;
+  /*vh= viewport height*/
+  height: 25vh;
 }
 .btn{
     background-color: rgb(44, 44, 148);
