@@ -11,7 +11,7 @@ https://cluce059.github.io/weatherApp/
 
 or
 
-![websiteScreenshot] (assets/imgs/screenshot.jpg)
+![websiteScreenshot] (./assets/imgs/screenshot.jpg)
 
 or 
 
