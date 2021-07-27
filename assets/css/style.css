@@ -10,7 +10,7 @@ header{
   text-align: center;
   width: 100%;
   /*vh= viewport height*/
-  height: 25vh;
+  /*height: 25vh;*/
 }
 .btn{
     background-color: rgb(44, 44, 148);
