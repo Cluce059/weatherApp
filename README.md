@@ -7,4 +7,12 @@ This application will display the current weather (temperature, humidity, wind s
 https://cluce059.github.io/weatherApp/
 
 # Screenshot
-![website]
+![websiteScreenshot] (https://raw.githubusercontent.com/Cluce059/weatherApp/main/assets/imgs/screenshot.jpg)
+
+or
+
+![websiteScreenshot] (assets/imgs/screenshot.jpg)
+
+or 
+
+![websiteScreenshot](assets\imgs\screenshot.jpg)
