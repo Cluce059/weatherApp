@@ -15,4 +15,4 @@ or
 
 or 
 
-![websiteScreenshot](assets\imgs\screenshot.jpg)
+![websiteScreenshot](.\assets\imgs\screenshot.jpg)
